@@ -1,10 +1,17 @@
 import { useState } from 'react';
-const Login = () => {
+import { useNavigate } from 'react-router-dom';
+
+const Login = ({ setUser }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleSubmit = async (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async e => {
     e.preventDefault();
+    if (!name || !email) return;
+    setUser({ name, email });
+    navigate('/dashboard');
   };
 
   return (
@@ -20,7 +27,7 @@ const Login = () => {
             className='form-input'
             id='name'
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
           />
         </div>
         <div className='form-row'>
@@ -32,7 +39,7 @@ const Login = () => {
             className='form-input'
             id='email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <button type='submit' className='btn btn-block'>
